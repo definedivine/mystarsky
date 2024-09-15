@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <title>StarSky Game</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <style>
+        body {
+            margin: 0;
+            background-color: #000; /* Sets the entire page's background color to black */
+            color: #FFF; /* Sets the default text color to white for all elements */
+            overflow: hidden; /* Ensures no unnecessary scroll bars */
+            font-family: 'Nunito', sans-serif;
+        }
+    
+        canvas {
+            display: block; /* Removes any space below the canvas */
+        }
+
+        #gameTitle {
+            margin-bottom: 20px; /* Adds space below the title */
+        }
+
+        h2 {
+            margin-top: 20px;
+            color: white;
+            font-style: light;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            background-color: #00ffef;
+            color: #000;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            position: absolute;    /* Make the position relative to the nearest positioned ancestor or the viewport if no ancestors have positioning. */
+            top: 30px;             /* 10px from the top */
+            right: 20px;           /* 10px from the right side */
+        }
+
+        button:hover {
+            background-color: #007f7a;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 id="gameTitle" style="text-align:center; color: white;">My StarSky ✨</h1>
+    <h2 id="subheading">You have created 0 stars, a whooping 0% of our galaxy.</h2>
+    <button id="saveButton">Save Your StarSky</button>
+    <script src="gameScript.js"></script>
+</body>
+
+</html>
