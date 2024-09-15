@@ -1,0 +1,76 @@
+body {
+    margin: 0;
+    background-color: #000;
+    color: #FFF;
+    overflow: hidden;
+    font-family: 'Nunito', sans-serif;
+}
+
+canvas {
+    display: block;
+}
+
+h2 {
+    margin-top: 20px;
+    color: white;
+    font-style: light;
+}
+
+button {
+    padding: 10px 15px;
+    border: none;
+    background-color: #00ffef;
+    color: #000;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: absolute;
+    top: 30px;
+    right: 20px;
+}
+
+button:hover {
+    background-color: #007f7a;
+}
+
+/* Footer Styles */
+.app-footer {
+    width: 100%;
+    padding: 1rem 2rem;
+    background-color: #333;
+    border-top: 1px solid #444;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    color: #FFF;
+}
+
+.app-footer a {
+    color: #FFF;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.app-footer a:hover {
+    text-decoration: underline;
+    color: #00ffef;
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-links img {
+    width: 24px;
+    height: 24px;
+    filter: brightness(0) invert(1); /* Icons are white in dark mode */
+    transition: filter 0.3s;
+}
+
+.social-links img:hover {
+    filter: brightness(1.5) invert(1);
+}
