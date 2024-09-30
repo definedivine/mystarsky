@@ -1,41 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
-    <title>StarSky Game</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <title>My StarSky</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-    <h1 id="gameTitle" style="text-align:center; color: white;">My StarSky ✨</h1>
-    <h2 id="subheading">You have created 0 stars, a whopping 0% of our galaxy.</h2>
-    <button id="saveButton">Save Your StarSky</button>
-
-    <!-- Footer -->
+    <header>
+        <h1 id="gameTitle">My StarSky ✨</h1>
+        <h2 id="subheading">You have created 0 stars, a whopping 0% of our galaxy.</h2>
+    </header>
+    <main>
+        <div id="canvasContainer"></div>
+        <button id="saveButton">Save Your StarSky</button>
+    </main>
     <footer class="app-footer">
-        <a href="https://buymeacoffee.com/blazpregelj" target="_blank">Buy me Coffee ☕️</a>
+        <a href="https://buymeacoffee.com/blazpregelj" target="_blank" rel="noopener noreferrer">Buy me Coffee ☕️</a>
         <div class="social-links">
-            <a href="https://x.com/BPregelj" target="_blank" aria-label="X">
+            <a href="https://x.com/BPregelj" target="_blank" rel="noopener noreferrer" aria-label="X">
                 <img src="assets/x-icon.svg" alt="X">
             </a>
-            <a href="https://www.linkedin.com/in/blazpregelj/" target="_blank" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/in/blazpregelj/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                 <img src="assets/linkedin-icon.svg" alt="LinkedIn">
             </a>
-            <a href="https://www.reddit.com/user/define_divine/" target="_blank" aria-label="Reddit">
+            <a href="https://www.reddit.com/user/define_divine/" target="_blank" rel="noopener noreferrer" aria-label="Reddit">
                 <img src="assets/reddit-icon.svg" alt="Reddit">
             </a>
-            <a href="https://www.instagram.com/podezelski/" target="_blank" aria-label="Instagram">
+            <a href="https://www.instagram.com/podezelski/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                 <img src="assets/instagram-icon.svg" alt="Instagram">
             </a>
         </div>
     </footer>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
     <script src="gameScript.js"></script>
 </body>
-
 </html>

@@ -2,32 +2,22 @@ let stars = [];
 let particles = [];
 let shootingStars = [];
 let clickCount = 0;
-const totalStarsInGalaxy = 342039024932;  // Example number
+const totalStarsInGalaxy = 342039024932;
 
 function setup() {
-    createCanvas(windowWidth, windowHeight);
+    let canvas = createCanvas(windowWidth, windowHeight);
+    canvas.parent('canvasContainer');
     background(0);
-
-    // H2 styling
-    const h2Elem = document.querySelector('h2');
-    h2Elem.style.position = 'absolute';
-    h2Elem.style.top = '50px';
-    h2Elem.style.left = '50%';
-    h2Elem.style.transform = 'translate(-50%, 0)';
-    h2Elem.style.fontSize = '14px';
-    h2Elem.style.color = '#00ffef';
-    
+    updateSubheading();
 }
 
 function draw() {
-    background(0);
+    background(0, 25); // Add a slight trail effect
 
-    // Display stars
     for (let star of stars) {
         star.display();
     }
 
-    // Handle particle explosion
     for (let i = particles.length - 1; i >= 0; i--) {
         particles[i].update();
         particles[i].display();
@@ -36,22 +26,17 @@ function draw() {
         }
     }
 
-    // Handle shooting stars
     for (let i = shootingStars.length - 1; i >= 0; i--) {
         shootingStars[i].update();
         shootingStars[i].display();
-        if (shootingStars[i].lifetime <= 0) {
+        if (shootingStars[i].isOffScreen()) {
             shootingStars.splice(i, 1);
         }
     }
 
-    if (frameCount % (15 * 60) === 0) {
+    if (frameCount % 180 === 0 && random() < 0.5) { // Adjust frequency of shooting stars
         shootingStars.push(new ShootingStar());
     }
-
-    // Update H2
-    let percentage = ((clickCount / totalStarsInGalaxy) * 100).toFixed(9);
-    document.querySelector('h2').innerText = `You have created ${clickCount} stars, a whopping ${percentage} % of our galaxy.`;
 }
 
 function windowResized() {
@@ -60,12 +45,16 @@ function windowResized() {
 }
 
 function mouseClicked() {
-    stars.push(new Star(mouseX, mouseY));
-    clickCount++;
+    if (mouseX >= 0 && mouseX <= width && mouseY >= 0 && mouseY <= height) {
+        stars.push(new Star(mouseX, mouseY));
+        clickCount++;
+        updateSubheading();
 
-    if (clickCount % 10 === 0) {
-        explodeRandomStar();
+        if (clickCount % 10 === 0) {
+            explodeRandomStar();
+        }
     }
+    return false; // Prevent default behavior
 }
 
 function doubleClicked() {
@@ -80,6 +69,12 @@ function doubleClicked() {
             break;
         }
     }
+    return false; // Prevent default behavior
+}
+
+function updateSubheading() {
+    let percentage = ((clickCount / totalStarsInGalaxy) * 100).toFixed(9);
+    document.getElementById('subheading').innerText = `You have created ${clickCount} stars, a whopping ${percentage}% of our galaxy.`;
 }
 
 function explodeRandomStar() {
@@ -148,44 +143,72 @@ class Particle {
 
 class ShootingStar {
     constructor() {
-        this.startX = random([0, width]);
-        this.endX = (this.startX === 0) ? width : 0;
-        this.y = random(height);
-        this.speed = random(6, 10);
-        this.lifetime = 2 * 60;  // Last for 2 seconds (assuming 60 frames per second)
+        this.reset();
+    }
+
+    reset() {
+        // Start from beyond the screen edges
+        if (random() < 0.5) {
+            this.x = random(width * 1.5);
+            this.y = -50;
+        } else {
+            this.x = width + 50;
+            this.y = random(height);
+        }
+        this.prevX = this.x;
+        this.prevY = this.y;
+        this.speedX = random(-15, -5);
+        this.speedY = random(1, 5);
+        this.size = random(2, 4);
+        this.tailLength = random(10, 20);
+        this.color = color(255, 255, random(200, 255));
     }
 
     update() {
-        if (this.startX === 0) {
-            this.startX += this.speed;
-        } else {
-            this.startX -= this.speed;
-        }
-        this.lifetime -= 1;
+        this.prevX = this.x;
+        this.prevY = this.y;
+        this.x += this.speedX;
+        this.y += this.speedY;
     }
 
     display() {
         push();
-        fill(255);
-        ellipse(this.startX, this.y, 20);
+        stroke(this.color);
+        strokeWeight(this.size);
+        line(this.x, this.y, this.prevX, this.prevY);
+        
+        // Create a tail effect
+        for (let i = 0; i < this.tailLength; i++) {
+            let alpha = map(i, 0, this.tailLength, 255, 0);
+            stroke(red(this.color), green(this.color), blue(this.color), alpha);
+            let x = lerp(this.x, this.prevX, i / this.tailLength);
+            let y = lerp(this.y, this.prevY, i / this.tailLength);
+            point(x, y);
+        }
         pop();
+    }
+
+    isOffScreen() {
+        return (this.x < -50 && this.y > height + 50);
     }
 }
 
 document.getElementById('saveButton').addEventListener('click', function() {
+    // Create a new canvas for saving
+    let saveCanvas = createGraphics(width, height);
+    
+    // Copy the current canvas to the new one
+    saveCanvas.image(get(), 0, 0);
+    
     // Add the title to the canvas
-    push();  // Save the current drawing settings
-    fill(255);  // White text
-    textSize(48);  // Set a font size for the title
-    textAlign(CENTER, CENTER);  // Center align
-    textFont('Nunito');  // Use the Nunito font
-    text("My StarSky", width / 2, height / 10);  // Draw the title near the top of the canvas
-    pop();  // Restore the saved drawing settings
+    saveCanvas.push();
+    saveCanvas.fill(255);
+    saveCanvas.textSize(48);
+    saveCanvas.textAlign(CENTER, CENTER);
+    saveCanvas.textFont('Nunito');
+    saveCanvas.text("My StarSky", width / 2, height / 10);
+    saveCanvas.pop();
 
-    // Save the canvas with the title
-    saveCanvas('MyStarrySky', 'png');
-
-    // Redraw the game view to remove the title from the canvas
-    draw();
+    // Save the new canvas
+    saveCanvas.save('MyStarrySky.jpg');
 });
-

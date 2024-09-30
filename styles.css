@@ -2,52 +2,83 @@ body {
     margin: 0;
     background-color: #000;
     color: #FFF;
-    overflow: hidden;
     font-family: 'Nunito', sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-canvas {
-    display: block;
+header {
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: relative;
+    z-index: 1;
 }
 
-h2 {
-    margin-top: 20px;
-    color: white;
-    font-style: light;
+#gameTitle {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: #00ffef;
 }
 
-button {
+#subheading {
+    font-size: 1rem;
+    font-weight: 300;
+    margin-top: 0;
+    color: #FFF;
+}
+
+main {
+    flex-grow: 1;
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 80px; /* To ensure the save button doesn't overlap with the footer */
+}
+
+#canvasContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#saveButton {
+    position: absolute; /* Position the button inside the main content */
+    bottom: 20px; /* Above the footer */
+    right: 20px;
     padding: 10px 15px;
     border: none;
     background-color: #00ffef;
     color: #000;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    position: absolute;
-    top: 30px;
-    right: 20px;
+    transition: all 0.3s ease;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    border-radius: 5px;
+    z-index: 2;
 }
 
-button:hover {
+#saveButton:hover {
     background-color: #007f7a;
+    color: #FFF;
+    transform: scale(1.05);
 }
 
-/* Footer Styles */
 .app-footer {
-    width: 100%;
+    background-color: rgba(51, 51, 51, 0.8);
     padding: 1rem 2rem;
-    background-color: #333;
-    border-top: 1px solid #444;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: absolute;
-    bottom: 0;
-    color: #FFF;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 2;
 }
 
 .app-footer a {
-    color: #FFF;
+    color: #FFF; /* Make the link color white */
     text-decoration: none;
     font-size: 1rem;
     font-weight: bold;
@@ -55,22 +86,39 @@ button:hover {
 }
 
 .app-footer a:hover {
-    text-decoration: underline;
-    color: #00ffef;
-}
-
-.social-links {
-    display: flex;
-    gap: 1rem;
+    color: #00ffef; /* Hover effect color */
 }
 
 .social-links img {
     width: 24px;
     height: 24px;
-    filter: brightness(0) invert(1); /* Icons are white in dark mode */
-    transition: filter 0.3s;
+    filter: brightness(0) invert(1);
+    transition: all 0.3s;
 }
 
 .social-links img:hover {
     filter: brightness(1.5) invert(1);
+    transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+    #gameTitle {
+        font-size: 2rem;
+    }
+
+    #subheading {
+        font-size: 0.9rem;
+    }
+
+    #saveButton {
+        top: 10px;
+        right: 10px;
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+
+    .app-footer {
+        flex-direction: column;
+        gap: 1rem;
+    }
 }

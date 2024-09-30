@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "../../UČENJE (koda)/StarSkyGame"
+		},
+		{
+			"path": "../../UČENJE (koda)/Calculator"
+		},
+		{
+			"path": "../../UČENJE (koda)/Lucky Draw App GPT o1"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "StarSkyGame"
+	}
+}
